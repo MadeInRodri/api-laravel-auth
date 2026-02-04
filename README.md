@@ -1,59 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# API de Gestión de Empleados (Laravel + JWT)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto consiste en una API RESTful desarrollada con Laravel 12 para la gestión de empleados. Incluye autenticación basada en tokens, control de acceso por roles y está preparada para despliegue en contenedores Docker y orquestación con Kubernetes.
 
-## About Laravel
+## Tecnologías y Herramientas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Framework: Laravel 12
+- Base de Datos: SQLite
+- Autenticación: JWT
+- Contenerización: Docker & Docker Compose
+- Orquestación: Kubernetes (2 réplicas distribuidas)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Instalación y Despliegue Local
 
-## Learning Laravel
+1. Clonar el repositorio:
+   git clone https://github.com/MadeInRodri/api-laravel-auth
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+2. Preparar la base de datos:
+   touch database/database.sqlite
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Levantar con Docker Compose:
+   docker-compose up -d --build
 
-## Laravel Sponsors
+4. Ejecutar migraciones:
+   docker-compose exec app php artisan migrate
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Documentación de Endpoints
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Nota: Todas las solicitudes deben incluir el Header "Accept: application/json".
 
-## Contributing
+### Autenticación
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- POST /api/register : Registra un nuevo usuario (Rol default: employee).
+- POST /api/login : Inicia sesión y devuelve el Token de acceso.
 
-## Code of Conduct
+### Gestión de Usuarios (CRUD)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- GET /api/users : Lista de usuarios (Filtrable con ?role=admin o ?role=employee).
+- GET /api/users/{id} : Obtiene datos de un usuario específico.
+- POST /api/users : Crea un nuevo usuario/empleado.
+- PATCH /api/users/{id} : Actualización parcial de datos.
+- DELETE /api/users/{id} : Elimina un usuario de la base de datos.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Estructura de Docker
 
-## License
+El entorno utiliza dos contenedores principales:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Contenedor 'app': Ejecuta PHP 8.2-FPM con extensiones para SQLite.
+2. Contenedor 'web': Servidor Nginx que actúa como proxy inverso.
+
+---
+
+## Configuración de Kubernetes
+
+Para asegurar la alta disponibilidad exigida, el despliegue incluye:
+
+- Deployment: Configurado con 2 réplicas para balanceo de carga.
+- Service: Un LoadBalancer para distribuir el tráfico entre los pods.
+
+Comando de despliegue:
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+
+---
+
+## Equipo
+
+- Rodrigo Alexis Mejía Rivas
+- Bryan Josué Fuentes Molina
+- Valeria Liseth Paredes Lara
+- Leonardo Enrique Flores Coto
+- Andre Emanuel Preza Deras
+- Joaquín Eduardo Morán Mejía
+- Estudiantes de Ingeniería en Ciencias de la Computación
