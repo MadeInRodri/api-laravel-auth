@@ -1,0 +1,43 @@
+
+
+GET http://127.0.0.1:8000/api/usuarios
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcwODQ5NzUyLCJleHAiOjE3NzA4NTMzNTIsIm5iZiI6MTc3MDg0OTc1MiwianRpIjoiWTJQV3B4eEFUT1Y1blJUVSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.C5kB3lhp9sU937T0-0WOhZLIG6CslMT3MwZQ5rQ1Af0
+###
+GET http://127.0.0.1:8000/api/usuarios/2
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcwODQ5OTAzLCJleHAiOjE3NzA4NTM1MDMsIm5iZiI6MTc3MDg0OTkwMywianRpIjoiaFZqUlJic1VHZW5pUDdXcyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.tm4q3BzaISuUeMqX1xTBPaHqRiYr_QofOaenQol4yg0
+
+###
+GET http://127.0.0.1:8000/api/logout
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcwODQ5NzUyLCJleHAiOjE3NzA4NTMzNTIsIm5iZiI6MTc3MDg0OTc1MiwianRpIjoiWTJQV3B4eEFUT1Y1blJUVSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.C5kB3lhp9sU937T0-0WOhZLIG6CslMT3MwZQ5rQ1Af0
+
+###
+POST http://127.0.0.1:8000/api/registro HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Bryan Josue Fuentes Molina",
+    "email": "bryaasdasda@gmail.com",
+    "role": "empleado",
+    "password": "bryanfuentes23"
+}
+###
+PATCH   http://127.0.0.1:8000/api/usuarios/2 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Leo Joshua Orellana Molina",
+    "email": "bryanfuentesm.54@gmail.com",
+    "role": "empleado",
+    "password": "bryanfuentes23"
+}
+###
+POST http://127.0.0.1:8000/api/login HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "bryanfuentesm.54@gmail.com",
+    "password": "bryanfuentes23"
+}
