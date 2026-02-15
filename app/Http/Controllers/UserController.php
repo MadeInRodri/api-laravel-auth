@@ -44,7 +44,8 @@ class UserController extends Controller
             'email' => 'bail|required|string|email|unique:users',
             'role' => 'nullable|string|in:admin,empleado',
             'password' => 'required|string|min:8'
-            ]);
+            ], 
+        ['email.unique' => 'El email ya existe']);
 
             if($validatedData->fails()){
 
@@ -111,7 +112,9 @@ class UserController extends Controller
             'email' => 'sometimes|string|email|unique:users,email,' . $user->id,
             'role' => 'sometimes|string|in:admin,empleado',
             'password' => 'sometimes|string|min:8'
-        ]);
+        ],
+        ['email.unique' => 'El email ya existe']
+        );
 
         if($validatedData->fails()){
             return response()->json([

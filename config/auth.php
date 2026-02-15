@@ -64,7 +64,7 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
+    //Acá se conecta el providers que pusiste en guardas :O
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
