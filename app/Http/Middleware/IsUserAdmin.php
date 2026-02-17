@@ -24,7 +24,7 @@ class IsUserAdmin
             return response()->json([
                 'status' =>'error',
                 'mensaje' => 'Usuario con rol no autorizado'
-            ]);
+            ],403);
         }
     }
 }

@@ -19,6 +19,8 @@ Route::middleware([isUserAuth::class])->group(function (){
     Route::get('/usuarios/{id}',[UserController::class,'show']);
 
     Route::get('/logout', [UserController::class, 'logout']);
+
+    //Route::patch('/usuarios/{id}',[UserController::class,'update']);
     //Para acceder a estas dos rutas se tiene que verificar que tenga: El Token JWT y que en la petición venga el role.
     Route::middleware([IsUserAdmin::class])->group(function (){
         //Que solo admin haga esto
@@ -35,4 +37,3 @@ Route::middleware([isUserAuth::class])->group(function (){
 Route::post('/registro', [UserController::class,'store']);
 
 Route::post('/login', [UserController::class,'login']);
-

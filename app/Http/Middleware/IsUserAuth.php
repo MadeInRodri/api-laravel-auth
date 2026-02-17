@@ -22,7 +22,7 @@ class IsUserAuth
             return response()->json([
                 'status' =>'error',
                 'mensaje' => 'Usuario no autorizado'
-            ]);
+            ],401);
         }
     }
 }

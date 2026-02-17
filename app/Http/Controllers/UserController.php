@@ -53,7 +53,7 @@ class UserController extends Controller
                     'status' => "error",
                     'mensaje' => "Credenciales de usuario invalidas",
                     'errores' => $validatedData->errors()
-                ]);
+                ],401);
             }
             $newUser =  $validatedData->getData();
             $newUser['role'] = $newUser['role'] ?? 'empleado';
@@ -70,9 +70,9 @@ class UserController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'status' => "error",
-                'mensaje' => 'se cayo el porton',
+                'mensaje' => 'Ha habido un error en el servidor',
                 'error' => $e->getMessage()
-            ]);
+            ],500);
         }
     }
 
@@ -121,9 +121,9 @@ class UserController extends Controller
                 'status' => "error",
                 'mensaje' => "Credenciales invalidas",
                 'errores' => $validatedData->errors()
-            ]);
+            ],401);
         }
-        $newUser = $validatedData ->getData();
+        $newUser = $validatedData ->validated();
 
         if(isset($newUser['password'])){
            $newUser['password'] = Hash::make($newUser['password']);
@@ -145,65 +145,43 @@ class UserController extends Controller
         //
         $user = User::find($id);
         if(!$user){
-            return response()->json(['Message'=>'No existe este usuario'],400);
+            return response()->json(['Message'=>'No existe este usuario'],404);
         }
         $user->delete();
         return response()->json(['Message' => 'El usuario ha sido eliminado correctamente'],200);
     }
 
-    public function login(Request $request){
+    public function login(Request $request) {
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email',
+        'password' => 'required|string|min:8'
+    ]);
 
-        //Este coso no devuelve un vector, devuelve el validator xd ->Parecido a Validators
-        $validatedData =  Validator::make($request->all(), 
-        [
-            'email'=> 'bail|required|email',
-            'password' => 'sometimes|string|min:8'
-        ]);
-
-        if($validatedData->fails()){
-            return response()->json([
-                "status" => 'error',
-                'mensaje'=>'Credenciales invalidas',
-                'error' => $validatedData->errors()
-            ]);
-        }
-
-        $user = User::where('email', $validatedData->getValue('email'))->first();
-     
-
-        if(!$user || !Hash::check($validatedData->getValue('password'), $user->password)){
-            return response()->json([
-                'status' => 'error',
-                'mensaje' => 'Correo o contraseña invalidos'
-            ]);
-        }
-
-        
-        //Creo el token....
-        try{
-            if(!$token =  JWTAuth::attempt($request->only(['email', 'password']))){
-                return response()->json([
-                    'status' => 'error',
-                    'mensaje' => 'Token no creado. Credenciales invalidas'
-                ]);
-            }
-            return response()->json([
-                'status' => 'exito',
-                'mensaje' => 'Usuario logeado.',
-                //Arreglar esto: Mandarlo de una manera más segura. 
-                'token' => $token
-            ]);
-        }catch(JWTException $e){
-            return response()->json(['error' =>"SE CAYO EL PORTON"]);
-        }
-
-
+    if ($validator->fails()) {
+        return response()->json(['status' => 'error', 'errores' => $validator->errors()], 422);
     }
+
+    $credentials = $request->only('email', 'password');
+
+    try {
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['status' => 'error', 'mensaje' => 'Credenciales inválidas'], 401);
+        }
+    } catch (JWTException $e) {
+        return response()->json(['status' => 'error', 'mensaje' => 'No se pudo crear el token'], 500);
+    }
+
+    return response()->json([
+        'status' => 'exito',
+        'mensaje' => 'Usuario logueado.',
+        'token' => $token
+    ]);
+}
 
     public function logout(){
         JWTAuth::invalidate(JWTAuth::getToken());
         return response()->json(['status'=> 'exito',
         'mensaje' => 'Usuario deslogeado. Eliminado token...',
-        ]);
+        ],200);
     }
 }
