@@ -1,0 +1,48 @@
+
+
+GET http://127.0.0.1:8000/api/usuarios
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcxMTY0NzgzLCJleHAiOjE3NzExNjgzODMsIm5iZiI6MTc3MTE2NDc4MywianRpIjoiSUo4dTRla3pnc21zUnlFNSIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GFCMmB122bof1Ox3KEiJjB2nxFBCXbNL51lkRZDb1S4
+###
+GET http://127.0.0.1:8000/api/usuarios/2
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcxMTY0NzgzLCJleHAiOjE3NzExNjgzODMsIm5iZiI6MTc3MTE2NDc4MywianRpIjoiSUo4dTRla3pnc21zUnlFNSIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GFCMmB122bof1Ox3KEiJjB2nxFBCXbNL51lkRZDb1S4
+
+###
+GET http://127.0.0.1:8000/api/logout
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcxMTY0NzgzLCJleHAiOjE3NzExNjgzODMsIm5iZiI6MTc3MTE2NDc4MywianRpIjoiSUo4dTRla3pnc21zUnlFNSIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GFCMmB122bof1Ox3KEiJjB2nxFBCXbNL51lkRZDb1S4
+
+###
+
+DELETE  http://127.0.0.1:8000/api/usuarios/2
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcxMTY1MDM5LCJleHAiOjE3NzExNjg2MzksIm5iZiI6MTc3MTE2NTAzOSwianRpIjoiT0QzMlJNcHQ3YXJNNXlSNyIsInN1YiI6IjgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.S8GZS2tolsXn_Ybwfx503IRu0SzyDQOIuSVOGGVwxJI
+
+###
+POST http://127.0.0.1:8000/api/registro HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Usuario Admin falso",
+    "email": "admin3@gmail.com",
+    "role": "",
+    "password": "admin12345"
+}
+###
+PATCH   http://127.0.0.1:8000/api/usuarios/2 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Leo Joshua Orellana Molina",
+    "email": "bryanfuentesm.54@gmail.com",
+    "role": "empleado",
+    "password": "bryanfuentes23"
+}
+###
+POST http://127.0.0.1:8000/api/login HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "admin3@gmail.com",
+    "password": "admin12345"
+}

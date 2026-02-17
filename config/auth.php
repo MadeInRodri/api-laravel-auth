@@ -14,7 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
+        //Aqui cambie
+        'guard' => env('AUTH_GUARD', 'api'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 
@@ -40,6 +41,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        //Aqui cambio
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -58,7 +64,7 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
+    //Acá se conecta el providers que pusiste en guardas :O
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
