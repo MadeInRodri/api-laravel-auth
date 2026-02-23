@@ -12,25 +12,62 @@ Este proyecto consiste en una API RESTful desarrollada con Laravel 12 para la ge
 
 ---
 
-## DEPLOYMENT EN KUBERNETES + DOCKER 
-1.  Arrancar Minikube
-   Primero inicia tu entorno Kubernetes: minikube start (Acá podés agregarle una
-   flag para que te cree más nodos)
-   Luego asegurate que existe un nodo de Minikube con: kubectl get nodes.
-   deberia de salirte el nodo principal de minikube o más si quisiste agregar más
-2. Crear las imágenes con DOCKER en Minikube
-   En este caso vamos a crear una imagen para PHP, que es tu app de laravel →
-   minikube image build -t laravel-php:v2 -f dockerfile/php.dockerfile .
-   Y vamos a crear una para el servidor nginx
-   minikube image build -t laravel-nginx:v3 -f dockerfile/nginx.dockerfile
-3. Crear los deployment, service y hpa.
-   Luego deployear los .yaml → kubectl apply -f php-service.yaml.
-   Vas a hacer este paso con todos los .yaml, no importa el orden.
-4. Crear el secrete para JWT
-   kubectl create secret generic laravel-secrets —fromliteral=JWT_SECRET=ljsadfgkjlsadjksad
-5. Crear el tunnel y obtener la IP del external IP
-   minikube tunnel -> NO VAYAS A CERRAR ESTE TERMINAL.
-   minikube service laravel-service -> NO VAYAS A CERRAR ESTE TERMINAL
+## Instalación y Despliegue Local
+
+1. Clonar el repositorio:
+   git clone https://github.com/MadeInRodri/api-laravel-auth
+
+2. Preparar la base de datos:
+   touch database/database.sqlite
+
+3. Levantar con Docker Compose:
+   docker-compose up -d --build
+
+4. Ejecutar migraciones:
+   docker-compose exec app php artisan migrate
+
+---
+
+## Documentación de Endpoints
+
+Nota: Todas las solicitudes deben incluir el Header "Accept: application/json".
+
+### Autenticación
+
+- POST /api/register : Registra un nuevo usuario (Rol default: employee).
+- POST /api/login : Inicia sesión y devuelve el Token de acceso.
+
+### Gestión de Usuarios (CRUD)
+
+- GET /api/users : Lista de usuarios (Filtrable con ?role=admin o ?role=employee).
+- GET /api/users/{id} : Obtiene datos de un usuario específico.
+- POST /api/users : Crea un nuevo usuario/empleado.
+- PATCH /api/users/{id} : Actualización parcial de datos.
+- DELETE /api/users/{id} : Elimina un usuario de la base de datos.
+
+---
+
+## Estructura de Docker
+
+El entorno utiliza dos contenedores principales:
+
+1. Contenedor 'app': Ejecuta PHP 8.2-FPM con extensiones para SQLite.
+2. Contenedor 'web': Servidor Nginx que actúa como proxy inverso.
+
+---
+
+## Configuración de Kubernetes
+
+Para asegurar la alta disponibilidad exigida, el despliegue incluye:
+
+- Deployment: Configurado con 2 réplicas para balanceo de carga.
+- Service: Un LoadBalancer para distribuir el tráfico entre los pods.
+
+Comando de despliegue:
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+
+---
 
 ## Equipo
 
