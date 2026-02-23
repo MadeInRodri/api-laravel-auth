@@ -1,33 +1,22 @@
 
 
-GET http://127.0.0.1:8000/api/usuarios
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcxMTY0NzgzLCJleHAiOjE3NzExNjgzODMsIm5iZiI6MTc3MTE2NDc4MywianRpIjoiSUo4dTRla3pnc21zUnlFNSIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GFCMmB122bof1Ox3KEiJjB2nxFBCXbNL51lkRZDb1S4
-###
-GET http://127.0.0.1:8000/api/usuarios/2
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcxMTY0NzgzLCJleHAiOjE3NzExNjgzODMsIm5iZiI6MTc3MTE2NDc4MywianRpIjoiSUo4dTRla3pnc21zUnlFNSIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GFCMmB122bof1Ox3KEiJjB2nxFBCXbNL51lkRZDb1S4
-
-###
-GET http://127.0.0.1:8000/api/logout
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcxMTY0NzgzLCJleHAiOjE3NzExNjgzODMsIm5iZiI6MTc3MTE2NDc4MywianRpIjoiSUo4dTRla3pnc21zUnlFNSIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GFCMmB122bof1Ox3KEiJjB2nxFBCXbNL51lkRZDb1S4
-
-###
-
-DELETE  http://127.0.0.1:8000/api/usuarios/2
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzcxMTY1MDM5LCJleHAiOjE3NzExNjg2MzksIm5iZiI6MTc3MTE2NTAzOSwianRpIjoiT0QzMlJNcHQ3YXJNNXlSNyIsInN1YiI6IjgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.S8GZS2tolsXn_Ybwfx503IRu0SzyDQOIuSVOGGVwxJI
-
-###
-POST http://127.0.0.1:8000/api/registro HTTP/1.1
-Content-Type: application/json
+GET http://127.0.0.1:60610/api/usuarios
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjYwNjEwL2FwaS9sb2dpbiIsImlhdCI6MTc3MTgxMDU3MCwiZXhwIjoxNzcxODE0MTcwLCJuYmYiOjE3NzE4MTA1NzAsImp0aSI6Ik5Fc2plejE2UDZxVDJqSmUiLCJzdWIiOiIyIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.ZiqcxDRMlq2mh_JnveN11UxgmkNyJYv_71utT4YfEYA
 
-{
-    "name": "Usuario Admin falso",
-    "email": "admin3@gmail.com",
-    "role": "",
-    "password": "admin12345"
-}
 ###
-PATCH   http://127.0.0.1:8000/api/usuarios/2 HTTP/1.1
+GET http://127.0.0.1:80/api/logout
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc3MTcxMDg5MiwiZXhwIjoxNzcxNzE0NDkyLCJuYmYiOjE3NzE3MTA4OTIsImp0aSI6ImZMT1BEMDlYb3VsVlNoTkMiLCJzdWIiOiIyIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.hjIjVeechORFFfe1vAY1C6zcBP6BXhMsJcXtC89UZzk
+###
+###
+
+DELETE  http://127.0.0.1:80/api/usuarios/2
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjU4NzkwL2FwaS9sb2dpbiIsImlhdCI6MTc3MTcyMDIxNSwiZXhwIjoxNzcxNzIzODE1LCJuYmYiOjE3NzE3MjAyMTUsImp0aSI6IjZKc3JFUDE5b1lCY0pSOUQiLCJzdWIiOiI1IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.aha7JivGTg-dJVQCA7RZiWtBODDCfWXVeuG1n2o73nE
+
+
+###
+PATCH   http://127.0.0.1:80/api/usuarios/2 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 
@@ -37,12 +26,39 @@ Accept: application/json
     "role": "empleado",
     "password": "bryanfuentes23"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ###
-POST http://127.0.0.1:8000/api/login HTTP/1.1
+POST http://127.0.0.1:60610/api/login HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "admin3@gmail.com",
+    "email": "alladsadasfgk3@gmail.com",
+    "password": "admin12345"
+}
+
+###
+POST http://127.0.0.1:60610/api/registro HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Usuario Admin falso",
+    "email": "alladsadasfgk3@gmail.com",
+    "role": "",
     "password": "admin12345"
 }

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel-php
+  labels:
+    app: laravel-php
+spec:
+  replicas: 1 # Aumentado a 3 para asegurar disponibilidad real
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1       # Crea un pod nuevo antes de eliminar el viejo
+      maxUnavailable: 0 # Garantiza que siempre haya pods activos durante el cambio
+  selector:
+    matchLabels:
+      app: laravel-php
+  template:
+    metadata:
+      labels:
+        app: laravel-php
+    spec:
+      containers:
+      - name: php
+        image: laravel-php:v2 # Nombre de la imagen ¡Importante que sea el mismo con el haces build!
+        imagePullPolicy: IfNotPresent #Especifica descargar la imagen si no está presente
+        resources:
+          requests: # Recursos limitados (esto es para el hpa)
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        ports:
+          - containerPort: 9000 # Importante: Debe de ser el mismo del config de nginx
+        env:
+          - name: JWT_SECRET #Por que nuestra API ocuap JWT para la seguridad
+            valueFrom:
+              secretKeyRef:
+                name: laravel-secrets
+                key: JWT_SECRET 
+          

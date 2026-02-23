@@ -1,0 +1,15 @@
+
+# BALANACEO DE CARGA 
+apiVersion: v1
+kind: Service
+metadata:
+  name: laravel-service
+spec:
+  selector:
+    app: laravel-nginx # Esto conecta el Service con las 3 réplicas de Nginx
+  ports:
+     - protocol: TCP
+       port: 80          # Puerto por el que escucha el Service
+       targetPort: 80    # Puerto del contenedor Nginx
+       nodePort: 30080   # Puerto opcional para acceder vía IP del nodo
+  type: LoadBalancer    # Se define el tipo, en este caso es load balancer

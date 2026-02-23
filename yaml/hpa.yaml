@@ -1,0 +1,49 @@
+apiVersion: autoscaling/v2 
+kind: HorizontalPodAutoscaler  # Recurso que ajusta automáticamente réplicas
+
+metadata:
+  name: laravel-hpa  # Nombre del HPA que escalará PHP
+
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: laravel-php 
+  minReplicas: 1  # Número mínimo de Pods que siempre existirán
+  maxReplicas: 5  # Límite máximo al que puede escalar
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu  # Métrica usada para escalar (CPU)
+        target:
+          type: Utilization
+          averageUtilization: 50
+          # Escala cuando el uso promedio de CPU
+          # supere el 50% del valor definido en requests.cpu
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+
+metadata:
+  name: nginx-hpa  # HPA que controla el Deployment de nginx
+
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: laravel-nginx
+    # Escala el Deployment de nginx, no el de PHP
+
+  minReplicas: 2  # Siempre habrá al menos 2 pods (mejor para alta disponibilidad)
+  maxReplicas: 5  # Escala hasta 5 máximo
+
+  metrics:
+    - type: Resource
+      resource:
+        name: memory  # Aquí usas memoria como métrica
+        target:
+          type: Utilization
+          averageUtilization: 70
+          # Escala cuando el uso promedio de memoria
+          # supere el 70% del valor definido en requests.memory

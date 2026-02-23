@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service # Tipo service siempre para los service
+metadata:
+  name: laravel-php
+spec:
+  selector:
+    app: laravel-php # Debe de apuntar al mismo nombre que declaramos en el deployment
+  ports:
+    - port: 9000 #Escucha el puerto de nuestro php
+      targetPort: 9000

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: laravel-nginx # Le decimos que sea servicio de este nombre
+spec:
+  type: NodePort # Va a ser tipo NodePort, o sease solo existirá dentro del Workload
+  selector:
+    app: laravel-nginx
+  ports:
+    - port: 80 # Importante, debe de ser el mismo que el de deployment
+      targetPort: 80
+      nodePort: 30007 # Dónde escucharia --Este puerto será reemplazado por el tunel que haremos--

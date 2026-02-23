@@ -1,0 +1,52 @@
+apiVersion: apps/v1  
+kind: Deployment     
+
+metadata:
+  name: laravel-nginx  
+  labels:
+    app: laravel-nginx 
+
+spec:
+  replicas: 3  # Número deseado de Pods (alta disponibilidad + balanceo real)
+
+  strategy:
+    type: RollingUpdate  
+    rollingUpdate:
+      maxSurge: 1        
+      maxUnavailable: 0  
+
+  selector:
+    matchLabels:
+      app: laravel-nginx 
+
+  template:
+    metadata:
+      labels:
+        app: laravel-nginx 
+        # Estos labels son los que usarán los Services para enviar tráfico.
+        # El Service buscará Pods con este label.
+
+    spec:
+      containers:
+      - name: laravel-nginx  # Nombre interno del contenedor dentro del Pod
+
+        image: laravel-nginx:v3 # Imagen Docker que se ejecutará en cada Pod.
+
+        imagePullPolicy: IfNotPresent # Si la imagen ya existe en el nodo, no la vuelve a descargar.
+
+        resources:
+          requests:
+            cpu: "100m"      # CPU mínima garantizada para scheduling
+            memory: "128Mi"  # Memoria mínima garantizada
+          limits:
+            cpu: "500m"      # Límite máximo de CPU (evita que consuma todo el nodo)
+            memory: "256Mi"  # Límite máximo de memoria
+
+        ports:
+          - containerPort: 80
+        env:
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: laravel-secrets
+                key: JWT_SECRET
